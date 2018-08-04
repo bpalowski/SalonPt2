@@ -1,0 +1,36 @@
+@using HairSalon.Models;
+<h1>Below is more information that pertains to Stylist :@Model["selectedStylist"].GetStylistName()</h1>
+<h2>Current list of Clients:</h2>
+  <ul>
+
+    @foreach(var client in Model["selectedClients"])
+    {
+    <li>@client.GetName()</li>
+    }
+  </ul>
+
+  <h2>As of now this is the types of Specialities:</h2>
+  @if (@Model["stylistSpecialties"].Count != 0)
+  {
+
+    <ul>
+      @foreach (var speciality in @Model["stylistSpecialties"])
+      {
+        <li>@speciality.GetDescription()</li>
+      }
+    </ul>
+  }
+<h4>Below are more Specialties you can add to @Model["selectedStylist"].GetStylistName()'s list?</h4>
+<form action='/stys/@Model["selectedStylist"].GetStyId()/specia/new' method='post'>
+  <label for='special-id'>Pick</label>
+  <select id='special-id' name='special-id' type='text'>
+    @foreach (var specialty in Model["allSpecialties"])
+    {
+      <option value="@specialty.GetId()">@specialty.GetDescription()</option>
+    }
+  </select>
+  <button type='submit' >Add</button>
+</form>
+<p><a href="/">Return to Main Page</a></p>
+<p><a href="/special">See all Specialties</a></p>
+<p><a href="/clis/new">Just in case you might want to add a Client to the list</a></p>
